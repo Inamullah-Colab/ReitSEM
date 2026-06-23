@@ -1,0 +1,2 @@
+dataset,status,n_pathways,nie_significant_count,nie_significant_rate,mean_abs_nie,max_abs_nie,schema,n_exposures,n_outcomes,n_mediators,n_covars,weight_col_used
+NHANES_stage6_corr70_r4_z_standard,ok,96,3,0.03125,0.0008293552683992055,0.0030195530065822603,prefix_lettercoded,6,4,4,6,

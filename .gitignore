@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+
+# Local runtime caches
+.pytest_cache/
+.mypy_cache/
+
+# Environment folders
+.venv/
+venv/
+env/
+
+# Temporary outputs
+tmp/
+temp/
