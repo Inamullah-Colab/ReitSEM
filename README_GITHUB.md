@@ -1,10 +1,10 @@
-# Project Overview
+# GitHub Note
 
-The canonical overview now lives in:
+The main GitHub landing page is:
+- `README.md`
+
+The detailed overview is:
 - `docs/PROJECT_OVERVIEW.md`
 
-The canonical workflow note now lives in:
+The step-by-step workflow is:
 - `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
-
-The main landing page is:
-- `README.md`
