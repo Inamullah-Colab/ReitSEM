@@ -17,3 +17,5 @@ env/
 # Temporary outputs
 tmp/
 temp/
+data/github_demo/
+scripts/create_github_demo_dataset.py

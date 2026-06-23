@@ -19,7 +19,7 @@ The repository is organised so that a new user can:
 - `scripts/`
   - main runnable code
 - `data/`
-  - demo or user-prepared inputs
+  - user-prepared inputs or release-linked data placeholders
 - `results/`
   - main locked summary tables
 - `figures/`
@@ -74,4 +74,4 @@ Treat these as legacy or archival material:
 - `reports/`
 - `other_models_run_2026-02-22/`
 
-Those legacy folders are retained for traceability, small demo-style reference material, and historical reruns, but they are not the main release entry points.
+Those legacy folders are retained for traceability, reference material, and historical reruns, but they are not the main release entry points.
