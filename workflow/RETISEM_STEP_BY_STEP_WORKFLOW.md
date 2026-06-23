@@ -85,11 +85,11 @@ Extended NHANES provenance used across the broader workflow includes:
 - `MCQ_D`
 
 Main local rebuild root:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/00_raw_sources/nhanes_xpt/`
+- `data/nhanes_xpt/`
 
 ### 2.2 Retinal feature source
 The retinal feature table used in the main locked workflow is:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/00_raw_sources/retinal_traits/macular_zone_b_imputed_with_seq.csv`
+- `data/retinal_traits/macular_zone_b_imputed_with_seq.csv`
 
 How the retinal features were extracted:
 1. fundus images were processed through AutoMorph
@@ -114,7 +114,7 @@ Reported counts in the local supplementary notes:
 
 ### 2.3 Genetic proxy source
 The proxy-genetics table used in the locked workflow is:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/00_raw_sources/proxy_genetics/NHANES_1000G_proxy_only.csv`
+- `data/proxy_genetics/NHANES_1000G_proxy_only.csv`
 
 These are not participant-level genotype calls.
 
@@ -152,7 +152,7 @@ The connection logic is:
 6. Join proxy-genetics covariates onto that table using `SEQN`.
 
 The main merge script is:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/02_harmonize_merge/stage2_harmonize_merge_from_preclean.py`
+- `scripts/real_data_pipeline/stage2_harmonize_merge_from_preclean.py`
 
 Stage 2 writes:
 - `NHANES_cleaned_stage2_merged.csv`
@@ -346,7 +346,7 @@ In the code:
 - `c'` is the direct exposure coefficient in the outcome model
 
 Main implementation:
-- `NAHES_Dataset/final_task/scripts/run_mediation_te_nde_nie_realdata.py`
+- `scripts/run_mediation_te_nde_nie_realdata.py`
 
 ## 7. How The Synthetic Benchmarks Were Generated
 The synthetic benchmark suite is the controlled validation stage before real-data transfer.
@@ -473,9 +473,9 @@ Representative significant retina-hub pathways from the locked run:
 - `LBXSBU -> Vein_Squared_curvature_tortuosity -> BPXPULS`
 
 ## 11. Recommended Reading Order
-1. `NAHES_Dataset/final_task/README.md`
-2. `NAHES_Dataset/final_task/README_GITHUB.md`
-3. `NAHES_Dataset/final_task/RETISEM_STEP_BY_STEP_WORKFLOW.md`
-4. `NAHES_Dataset/platform_from_scratch_master_2026-02-24/10_docs/README_START_HERE.md`
-5. `NAHES_Dataset/platform_from_scratch_master_2026-02-24/10_docs/REPRODUCIBILITY_ONE_PAGE.md`
-6. `NAHES_Dataset/platform_from_scratch_master_2026-02-24/10_docs/SUPPLEMENTARY_REVIEWER_ONE_PAGE.md`
+1. `README.md`
+2. `README_GITHUB.md`
+3. `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
+4. `workflow/README_START_HERE.md`
+5. `workflow/REPRODUCIBILITY_ONE_PAGE.md`
+6. `docs/PROJECT_OVERVIEW.md`

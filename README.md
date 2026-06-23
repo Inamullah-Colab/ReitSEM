@@ -68,6 +68,97 @@ The main real-data workflow connects three sources:
 
 Retinal features were extracted from fundus images with AutoMorph-derived vessel measurements and linked back to participant-level NHANES records using `SEQN`.
 
+## Real-Data Sources And Exact Locked Paths
+Main NHANES raw-source root in this public repo:
+- `data/nhanes_xpt/`
+
+Core NHANES tables used in the staged rebuild:
+- `DEMO_D`
+- `BMX_D`
+- `BPX_D`
+- `HDL_D`
+- `LEXABPI`
+- `SLQ_D`
+- `SMQ_D`
+- `TCHOL_D`
+- `TRIGLY_D`
+
+Retinal feature source used in the locked workflow:
+- `data/retinal_traits/macular_zone_b_imputed_with_seq.csv`
+
+Proxy-genetic source used in the locked workflow:
+- `data/proxy_genetics/NHANES_1000G_proxy_only.csv`
+
+Main locked transformed dataset:
+- `platform_from_scratch_master_2026-02-24/07_transform_benchmark/outputs/NHANES_stage6_corr70_r4_z_standard.csv`
+
+Main locked run root:
+- `platform_from_scratch_master_2026-02-24/08_model_runs/final_z2000/`
+
+Main locked summary files:
+- `results/main_locked/summary_all_datasets.csv`
+- `results/main_locked/summary.csv`
+- `results/main_locked/mediation_table_all_combos.csv`
+
+## How The Three Real-Data Sources Are Connected
+The integration key is:
+- `SEQN`
+
+The connection sequence is:
+1. each NHANES `.xpt` table is cleaned separately
+2. the retinal trait table is cleaned separately
+3. the proxy-genetic table is cleaned separately
+4. NHANES tables are merged into one participant-level table
+5. retinal features are joined onto the NHANES participant table by `SEQN`
+6. proxy-genetic covariates are joined onto the same participant table by `SEQN`
+7. the merged table is filtered, quality-checked, pruned, transformed, and passed into the final mediation workflow
+
+Main merge script:
+- `scripts/real_data_pipeline/stage2_harmonize_merge_from_preclean.py`
+
+Main merge-stage outputs:
+- `platform_from_scratch_master_2026-02-24/02_harmonize_merge/outputs/NHANES_cleaned_stage2_merged.csv`
+- `platform_from_scratch_master_2026-02-24/02_harmonize_merge/outputs/NHANES_stage2_merged_with_retinal_proxy_from_premerge_clean.csv`
+
+## Real-Data Pipeline In Order
+1. pre-merge missingness filtering
+2. harmonize and merge by `SEQN`
+3. post-merge missingness filtering
+4. retinal quality control
+5. global multicollinearity pruning with Spearman `|rho| <= 0.70`
+6. hemodynamic completion and role check
+7. transformation benchmark and locked dataset selection
+8. mediation estimation for `TE`, `NDE`, and `NIE`
+9. final figure rendering
+
+The full step-by-step note is:
+- `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
+
+The stage scripts included directly in this public repo are:
+- `scripts/real_data_pipeline/stage1_premerge_missingness.py`
+- `scripts/real_data_pipeline/stage2_harmonize_merge_from_preclean.py`
+- `scripts/real_data_pipeline/stage3_postmerge_missingness.py`
+- `scripts/real_data_pipeline/stage4_retinal_qc_penalize_then_fix.py`
+- `scripts/real_data_pipeline/stage5_corr70_final.py`
+- `scripts/real_data_pipeline/stage6_hemodynamics_check.py`
+- `scripts/real_data_pipeline/stage6_hemodynamics_check_corr70.py`
+- `scripts/real_data_pipeline/build_r4_transforms.py`
+
+## Retinal Extraction And Biological Interpretation
+The retinal features were not manually typed variables. They were generated from fundus-image processing outputs, then converted into quantitative vessel traits, then linked back to participant-level NHANES records.
+
+The retinal block includes features such as:
+- fractal-dimension measurements
+- artery and vein tortuosity measurements
+- vessel-density measurements
+- calibre-ratio style features such as `AVR`
+
+In this release, the retinal block is used as a structured hypothesis-testing layer. The repository does not force the claim that the retina is always causal. Instead, it tests whether retinal features behave as:
+- active mediator-like variables
+- passive indicators
+- dominant pathway variables
+- or weak biomarker-like signals
+
 ## Start Here
 1. `docs/PROJECT_OVERVIEW.md`
 2. `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
@@ -89,6 +180,7 @@ Retinal features were extracted from fundus images with AutoMorph-derived vessel
 - `scripts/make_sem_paper_png_results.py`
 - `scripts/build_external_prior_knowledge.py`
 - `scripts/run_our_sem_standalone_prioraware.py`
+- `scripts/real_data_pipeline/`
 
 ## Main Locked Outputs
 - `results/main_locked/summary_all_datasets.csv`
@@ -96,6 +188,18 @@ Retinal features were extracted from fundus images with AutoMorph-derived vessel
 - `figures/main/sem_paper_forest_te_nde_nie.png`
 - `figures/main/sem_paper_forest_te_nde_nie_top30.png`
 - `figures/main/sem_paper_summary_te_nde_nie.png`
+
+Locked NHANES-linked summary values in this release:
+- `n_pathways = 96`
+- `nie_significant_count = 3`
+- `nie_significant_rate = 0.03125`
+- `mean_abs_nie = 0.0008293552683992055`
+- `max_abs_nie = 0.0030195530065822603`
+
+Representative detectable indirect-effect pathways:
+- `URXUMA -> Artery_Distance_tortuosity -> BPXPULS`
+- `URXUMA -> Vein_Squared_curvature_tortuosity -> BPXPULS`
+- `LBXSBU -> Vein_Squared_curvature_tortuosity -> BPXPULS`
 
 ## Main vs Legacy
 Use these as the main public release paths:
@@ -109,6 +213,5 @@ Use these as the main public release paths:
 Treat these as reference or archival material:
 - `results/` subfolders other than `main_locked/`
 - `reports/`
-- `other_models_run_2026-02-22/`
 
 Some scripts still use the older internal name `OUR_SEM`. That naming is kept for compatibility only.

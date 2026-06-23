@@ -5,13 +5,13 @@ This folder is the main GitHub-facing RetiSEM release.
 Some scripts and artifacts still use the older internal label `OUR_SEM`; those names are kept for compatibility.
 
 Start here:
-- `final_task/RETISEM_STEP_BY_STEP_WORKFLOW.md`
-- `final_task/DATA.md`
-- `platform_from_scratch_master_2026-02-24/10_docs/REPRODUCIBILITY_ONE_PAGE.md`
+- `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
+- `docs/DATA.md`
+- `workflow/REPRODUCIBILITY_ONE_PAGE.md`
 
 ## Legal Notice
 Read first:
-- `final_task/COPYRIGHT_NOTICE.md`
+- `docs/COPYRIGHT_NOTICE.md`
 
 ## Summary
 RetiSEM is a structured analysis workflow for mixed biomedical data. It is designed for settings where the information does not come from one clean table, but from several linked sources.
@@ -98,7 +98,7 @@ You can think of these as three layers of information about the same participant
 - background adjustment variables
 
 Retinal feature source used in the locked workflow:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/00_raw_sources/retinal_traits/macular_zone_b_imputed_with_seq.csv`
+- `data/retinal_traits/macular_zone_b_imputed_with_seq.csv`
 
 Retinal extraction narrative:
 - APTOS fundus images were processed with AutoMorph
@@ -106,7 +106,7 @@ Retinal extraction narrative:
 - the resulting retinal trait table was linked to NHANES using `SEQN`
 
 Proxy-genetic source:
-- `NAHES_Dataset/platform_from_scratch_master_2026-02-24/00_raw_sources/proxy_genetics/NHANES_1000G_proxy_only.csv`
+- `data/proxy_genetics/NHANES_1000G_proxy_only.csv`
 
 These proxy variables are not participant-level genotype calls. They are used for adjustment when true genetics are unavailable.
 
@@ -131,14 +131,15 @@ This sequence is intentional:
 - then estimate retinal mediation pathways on the final locked dataset
 
 Full step-by-step details are in:
-- `final_task/RETISEM_STEP_BY_STEP_WORKFLOW.md`
+- `workflow/RETISEM_STEP_BY_STEP_WORKFLOW.md`
 
 ## Main Scripts
-- `final_task/scripts/run_our_sem_on_nhanes_realdata.py`
-- `final_task/scripts/run_mediation_te_nde_nie_realdata.py`
-- `final_task/scripts/make_sem_paper_png_results.py`
-- `final_task/scripts/build_external_prior_knowledge.py`
-- `final_task/scripts/run_our_sem_standalone_prioraware.py`
+- `scripts/run_our_sem_on_nhanes_realdata.py`
+- `scripts/run_mediation_te_nde_nie_realdata.py`
+- `scripts/make_sem_paper_png_results.py`
+- `scripts/build_external_prior_knowledge.py`
+- `scripts/run_our_sem_standalone_prioraware.py`
+- `scripts/real_data_pipeline/`
 
 ## Main Locked NHANES Run
 Locked run root:
